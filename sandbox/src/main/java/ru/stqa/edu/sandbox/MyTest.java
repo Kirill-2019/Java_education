@@ -19,8 +19,7 @@ public class MyTest {
       System.out.println();
       System.out.println();
       System.out.println("Практика:");
-
-      //Обучение
+      
       hello("world");
       hello("user");
       hello("Alexei");
