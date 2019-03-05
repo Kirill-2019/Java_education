@@ -1,4 +1,6 @@
-public class Mytest{
+package ru.stqa.edu.sandbox;
+
+public class Mytest {
 
 public static void main(String[] args) {
 
