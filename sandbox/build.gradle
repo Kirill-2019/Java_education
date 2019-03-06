@@ -3,9 +3,9 @@ apply plugin: 'application'
 mainClassName = "Mytest"
 
 repositories {
-    MavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-    implementation 'org.testng:testng:7.0.0-beta3'
+    compile 'org.testng:testng:7.0.0-beta3'
 }
