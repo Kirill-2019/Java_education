@@ -8,7 +8,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="sandbox.main" />
+    <orderEntry type="library" name="Gradle: org.testng:testng:7.0.0-beta3" level="project" />
   </component>
   <component name="TestModuleProperties" production-module="sandbox.main" />
 </module>
