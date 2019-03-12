@@ -14,29 +14,45 @@ public class GroupCreationTests {
       WD.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
     WD.get("http://localhost/addressbook/");
-    WD.findElement(By.name("user")).clear();
-    WD.findElement(By.name("user")).sendKeys("admin");
-    WD.findElement(By.name("pass")).clear();
-    WD.findElement(By.name("pass")).sendKeys("secret");
-    WD.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Password:'])[1]/following::input[2]")).click();
+    Login("admin", "secret");
 
 
   }
 
+  private void Login(String Loginname, String Password) {
+    WD.findElement(By.name("user")).clear();
+    WD.findElement(By.name("user")).sendKeys(Loginname);
+    WD.findElement(By.name("pass")).clear();
+    WD.findElement(By.name("pass")).sendKeys(Password);
+    WD.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Password:'])[1]/following::input[2]")).click();
+  }
+
   @Test
   public void testGroupCreation() throws Exception {
-    WD.findElement(By.linkText("groups")).click();
-    WD.findElement(By.name("new")).click();
-    WD.findElement(By.name("group_name")).click();
+    GoToGroupPage("groups");
+    initgroupcreation("new");
+    initgroupcreation("group_name");
+    fillGroupForm("test3", "test3", "test3");
+    initgroupcreation("submit");
+    GoToGroupPage("group page");
+    GoToGroupPage("Logout");
+  }
+
+  private void fillGroupForm(String Name, String Header, String Fooder) {
     WD.findElement(By.name("group_name")).clear();
-    WD.findElement(By.name("group_name")).sendKeys("test3");
+    WD.findElement(By.name("group_name")).sendKeys(Name);
     WD.findElement(By.name("group_header")).clear();
-    WD.findElement(By.name("group_header")).sendKeys("test3");
+    WD.findElement(By.name("group_header")).sendKeys(Header);
     WD.findElement(By.name("group_footer")).clear();
-    WD.findElement(By.name("group_footer")).sendKeys("test3");
-    WD.findElement(By.name("submit")).click();
-    WD.findElement(By.linkText("group page")).click();
-    WD.findElement(By.linkText("Logout")).click();
+    WD.findElement(By.name("group_footer")).sendKeys(Fooder);
+  }
+
+  private void initgroupcreation(String s) {
+    WD.findElement(By.name(s)).click();
+  }
+
+  private void GoToGroupPage(String groups) {
+    WD.findElement(By.linkText(groups)).click();
   }
 
   @AfterMethod(alwaysRun = true)
