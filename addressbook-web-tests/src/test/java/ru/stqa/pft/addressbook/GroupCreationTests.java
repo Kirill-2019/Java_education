@@ -1,9 +1,11 @@
 package ru.stqa.pft.addressbook;
 
 import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.*;
 import org.openqa.selenium.*;
-import org.openqa.selenium.firefox.FirefoxDriver;
+
 
 public class GroupCreationTests {
   private WebDriver WD;
