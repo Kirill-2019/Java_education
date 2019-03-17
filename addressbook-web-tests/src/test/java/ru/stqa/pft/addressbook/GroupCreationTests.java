@@ -1,10 +1,15 @@
 package ru.stqa.pft.addressbook;
 
-import java.util.concurrent.TimeUnit;
-
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.annotations.*;
-import org.openqa.selenium.*;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+import java.util.concurrent.TimeUnit;
 
 
 public class GroupCreationTests {
@@ -13,8 +18,7 @@ public class GroupCreationTests {
   @BeforeMethod(alwaysRun = true)
   public void setUp() throws Exception {
     WD = new FirefoxDriver();
-      WD.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-
+    WD.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     WD.get("http://localhost/addressbook/");
     Login("admin", "secret");
 
@@ -26,35 +30,48 @@ public class GroupCreationTests {
     WD.findElement(By.name("user")).sendKeys(Loginname);
     WD.findElement(By.name("pass")).clear();
     WD.findElement(By.name("pass")).sendKeys(Password);
-    WD.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Password:'])[1]/following::input[2]")).click();
+   // WD.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Password:'])[1]/following::input[2]")).click();
+    WD.findElement(By.xpath("//input[@value='Login']")).click();
   }
 
   @Test
   public void testGroupCreation() throws Exception {
-    GoToGroupPage("groups");
-    initgroupcreation("new");
-    initgroupcreation("group_name");
-    fillGroupForm("test3", "test3", "test3");
-    initgroupcreation("submit");
-    GoToGroupPage("group page");
-    GoToGroupPage("Logout");
+    goToGroupPage();
+    initgroupcreation();
+    fillGroupForm(new GroupData("test3", "test3", "test3"));
+    submitGroupCreation();
+    returnToGroupPage();
+   // GoToGroupPage("Logout");
   }
 
-  private void fillGroupForm(String Name, String Header, String Fooder) {
+  private void fillGroupForm(GroupData groupData) {
+    WD.findElement(By.name("group_name")).click();
     WD.findElement(By.name("group_name")).clear();
-    WD.findElement(By.name("group_name")).sendKeys(Name);
+    WD.findElement(By.name("group_name")).sendKeys(groupData.getName());
     WD.findElement(By.name("group_header")).clear();
-    WD.findElement(By.name("group_header")).sendKeys(Header);
+    WD.findElement(By.name("group_header")).sendKeys(groupData.getHeader());
     WD.findElement(By.name("group_footer")).clear();
-    WD.findElement(By.name("group_footer")).sendKeys(Fooder);
+    WD.findElement(By.name("group_footer")).sendKeys(groupData.getFooter());
   }
 
-  private void initgroupcreation(String s) {
-    WD.findElement(By.name(s)).click();
+  private void submitGroupCreation() {
+    WD.findElement(By.name("submit")).click();
+
   }
 
-  private void GoToGroupPage(String groups) {
-    WD.findElement(By.linkText(groups)).click();
+  private void returnToGroupPage() {
+    WD.findElement(By.linkText("group page")).click();
+  }
+
+
+  private void initgroupcreation() {
+
+    WD.findElement(By.name("new")).click();
+  }
+
+  private void goToGroupPage()
+  {
+    WD.findElement(By.linkText("groups")).click();
   }
 
   @AfterMethod(alwaysRun = true)
