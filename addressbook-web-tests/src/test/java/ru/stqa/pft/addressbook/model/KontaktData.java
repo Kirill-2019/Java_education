@@ -1,10 +1,10 @@
-package ru.stqa.pft.addressbook.tests;
+package ru.stqa.pft.addressbook.model;
 
-public class KontaktPar {
+public class KontaktData {
    private final String firstname;
    private final String middlename;
 
-   public KontaktPar(String firstname, String middlename) {
+   public KontaktData(String firstname, String middlename) {
       this.firstname = firstname;
       this.middlename = middlename;
    }

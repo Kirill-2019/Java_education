@@ -14,12 +14,14 @@ public class ApplicationManager {
    private SessionHelper SessionHelper;
    private NavigationHelper navigationHelper;
    private GroupHelper groupHelper;
+   private KontactHelper kontactHelper;
 
    public void init() {
       WD = new FirefoxDriver();
       WD.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
       WD.get("http://localhost/addressbook/");
       groupHelper = new GroupHelper(WD);
+      kontactHelper = new KontactHelper(WD);
       navigationHelper = new NavigationHelper(WD);
       SessionHelper = new SessionHelper(WD);
       SessionHelper.Login("admin", "secret");
@@ -40,6 +42,9 @@ public class ApplicationManager {
    }
 
 
+   public KontactHelper getKontactHelper() {
+      return kontactHelper;
+   }
 
    public GroupHelper getGroupHelper() {
       return groupHelper;
