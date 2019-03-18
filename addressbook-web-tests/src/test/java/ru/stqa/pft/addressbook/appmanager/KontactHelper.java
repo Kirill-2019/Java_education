@@ -61,5 +61,15 @@ public class KontactHelper extends HelperBase {
    public void KontactClic() {  click(By.name("container"));}
 
 
+   public void initkontaktmodification() {
+
+     // click(By.id("maintable"));
+
+      click(By.xpath("//img[@alt='Edit']"));
    }
+
+   public void updatekontakt() {
+      click(By.name("update"));
+   }
+}
 
