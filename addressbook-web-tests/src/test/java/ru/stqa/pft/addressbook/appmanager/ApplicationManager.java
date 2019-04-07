@@ -19,10 +19,17 @@ public class ApplicationManager {
    private NavigationHelper navigationHelper;
    private GroupHelper groupHelper;
    private KontactHelper kontactHelper;
+   private String browser;
+
+
+   public ApplicationManager(String browser) {
+      this.browser = browser;
+
+   }
 
    public void init() {
 
-      String browser = BrowserType.FIREFOX;
+     // String browser = BrowserType.FIREFOX;
 
       if (browser.equals(BrowserType.FIREFOX)){
          WD = new FirefoxDriver();
