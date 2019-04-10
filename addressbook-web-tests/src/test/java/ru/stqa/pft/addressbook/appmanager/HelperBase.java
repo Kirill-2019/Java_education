@@ -2,6 +2,7 @@ package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
 public class HelperBase {
@@ -15,10 +16,11 @@ public class HelperBase {
       click(Locator);
       if (text != null) {
          String existingText = WD.findElement(Locator).getAttribute("value");
-         if (text.equals(existingText)) {
+         if (! text.equals(existingText)) {
             WD.findElement(Locator).clear();
             WD.findElement(Locator).sendKeys(text);
          }
+
       }
 
 
@@ -37,4 +39,13 @@ public class HelperBase {
       }
    }
 
+   protected boolean iselementPresent(By locator) {
+      try {
+         WD.findElement(locator);
+         return true;
+      } catch (NoSuchElementException ex) {
+         return false;
+
+      }
+      }
 }

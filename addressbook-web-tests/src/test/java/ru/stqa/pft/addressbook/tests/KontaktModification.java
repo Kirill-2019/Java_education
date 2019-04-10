@@ -11,7 +11,7 @@ public class KontaktModification extends TestBase {
 
       app.getGroupHelper().selectGroup();
       app.getKontactHelper().initkontaktmodification();
-      app.getKontactHelper().fillGroupForm(new KontaktData("---bla---", "blalbla"));
+      app.getKontactHelper().fillGroupForm(new KontaktData("---bla---", "blalbla", "test","TesT",null),false);
       app.getKontactHelper().updatekontakt();
       app.getNavigationHelper().goTohomePage();
    }

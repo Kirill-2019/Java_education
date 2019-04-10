@@ -4,6 +4,8 @@ import static org.testng.Assert.*;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.KontaktData;
 
 
@@ -16,9 +18,17 @@ public class KontactHelper extends HelperBase {
       super(WD);
    }
 
-   public void fillGroupForm(KontaktData kontaktData) {
+   public void fillGroupForm(KontaktData kontaktData, boolean creation) {
       type(By.name("firstname"), kontaktData.getFirstname());
       type(By.name("middlename"), kontaktData.getMiddlename());
+      type(By.name("lastname"), kontaktData.getLastname());
+      type(By.name("nickname"), kontaktData.getNickname());
+
+      if (creation) {
+         new Select(WD.findElement(By.name("new_group"))).selectByVisibleText(kontaktData.getGroup());
+      } else {
+         Assert.assertFalse(iselementPresent(By.name("new_group")));
+      }
 
    }
 
@@ -72,4 +82,6 @@ public class KontactHelper extends HelperBase {
       click(By.name("update"));
    }
 }
+
+
 

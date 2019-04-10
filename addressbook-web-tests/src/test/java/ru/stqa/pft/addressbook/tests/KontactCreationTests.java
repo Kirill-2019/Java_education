@@ -8,7 +8,7 @@ public class KontactCreationTests extends TestBase{
   @Test
   public void testKontact() throws Exception {
     app.getKontactHelper().initkontcreation();
-    app.getKontactHelper().fillGroupForm(new KontaktData("bla","blablalbla"));
+    app.getKontactHelper().fillGroupForm(new KontaktData("bla","blablalbla","lastname", "nick_name", "test3"),true );
     app.getKontactHelper().submitKontaktCreation();
 
   }
