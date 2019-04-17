@@ -53,14 +53,14 @@ public class ApplicationManager {
       WD.quit();
    }
 
-   private boolean isElementPresent(By by) {
-     try {
-       WD.findElement(by);
-       return true;
-     } catch (NoSuchElementException e) {
-       return false;
-     }
-   }
+   //public boolean isElementPresent(By by) {
+   //  try {
+   //   WD.findElement(by);
+   //    return true;
+   //  } catch (NoSuchElementException e) {
+   //   return false;
+   //  }
+   //}
 
 
    public KontactHelper getKontactHelper() {

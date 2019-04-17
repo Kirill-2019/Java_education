@@ -10,6 +10,10 @@ public class GroupHelper extends HelperBase {
       super(WD);
    }
 
+   public boolean isThereAGroup() {
+      return iselementPresent(By.name("selected[]"));
+   }
+
    public void fillGroupForm(GroupData groupData) {
       type(By.name("group_name"), groupData.getName());
       type(By.name("group_header"), groupData.getHeader());

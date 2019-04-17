@@ -8,11 +8,11 @@ public class GroupDeletionTests extends TestBase {
   @Test
   public void testGroupDeletion() throws Exception {
     app.getNavigationHelper().goToGroupPage();
-    //if  (! app.getGroupHelper().IsThereAGroup()){
+    if  (! app.getGroupHelper().isThereAGroup()){
+      app.getGroupHelper().CreateGroup(new GroupData("test3", null, null));
+    }
 
-   // }
 
-    app.getGroupHelper().CreateGroup(new GroupData("test3", null, null));
     app.getGroupHelper().selectGroup();
     app.getGroupHelper().deleteSelectedGroups();
     app.getGroupHelper().returnToGroupPage();

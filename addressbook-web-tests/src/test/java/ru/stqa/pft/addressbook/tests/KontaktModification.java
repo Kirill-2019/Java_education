@@ -9,6 +9,13 @@ public class KontaktModification extends TestBase {
    public void testKontaktModification() {
 
 
+
+
+      if  (! app.getGroupHelper().isThereAGroup()){
+         app.getKontactHelper().CreateKontact(new KontaktData("bla","blablalbla","lastname", "nick_name", "test3"));
+         app.getNavigationHelper().goTohomePage();
+      }
+
       app.getGroupHelper().selectGroup();
       app.getKontactHelper().initkontaktmodification();
       app.getKontactHelper().fillGroupForm(new KontaktData("---bla---", "blalbla", "test","TesT",null),false);

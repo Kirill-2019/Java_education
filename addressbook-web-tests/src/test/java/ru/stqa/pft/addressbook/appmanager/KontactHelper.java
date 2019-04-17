@@ -81,6 +81,13 @@ public class KontactHelper extends HelperBase {
    public void updatekontakt() {
       click(By.name("update"));
    }
+
+   public void CreateKontact(KontaktData group) {
+      initkontcreation();
+      fillGroupForm(new KontaktData("bla","blablalbla","lastname", "nick_name", "test3"),true );
+      submitKontaktCreation();
+   }
+
 }
 
 
