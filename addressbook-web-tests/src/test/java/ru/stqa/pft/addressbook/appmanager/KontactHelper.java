@@ -11,6 +11,10 @@ import ru.stqa.pft.addressbook.model.KontaktData;
 
 import org.openqa.selenium.*;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class KontactHelper extends HelperBase {
    private boolean acceptNextAlert = true;
@@ -41,6 +45,8 @@ public class KontactHelper extends HelperBase {
    public void acceptNext() {
       acceptNextAlert = true;
       assertTrue(closeAlertAndGetItsText().matches("^Delete 1 addresses[\\s\\S]$"));
+      click((By.linkText("home")));
+
    }
 
    private String closeAlertAndGetItsText() {
@@ -71,11 +77,12 @@ public class KontactHelper extends HelperBase {
    public void KontactClic() {  click(By.name("container"));}
 
 
-   public void initkontaktmodification() {
+   public void initkontaktmodification(int index) {
 
-     // click(By.id("maintable"));
+      // click(By.id("maintable"));
+      List<WebElement> elements = WD.findElements(new By.ByXPath("//img[@alt='Edit']"));
+      elements.get(index).click();
 
-      click(By.xpath("//img[@alt='Edit']"));
    }
 
    public void updatekontakt() {
@@ -86,8 +93,25 @@ public class KontactHelper extends HelperBase {
       initkontcreation();
       fillGroupForm(new KontaktData("bla","blablalbla","lastname", "nick_name", "test3"),true );
       submitKontaktCreation();
+      click((By.linkText("home page")));
    }
 
+   public List<KontaktData> getKontaktList() {
+
+
+
+      List<KontaktData> kontakts = new ArrayList<KontaktData>();
+      List<WebElement> elements = WD.findElements(By.cssSelector("tr"));
+      for (int i =1;i < elements.size();i++){
+         WebElement element = elements.get(i);
+         int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+         List<WebElement> td = element.findElements(By.cssSelector("td"));
+         KontaktData kontakt = new KontaktData(id,td.get(2).getText() ,null,td.get(1).getText(),null,null );
+         kontakts.add(kontakt);
+
+      }
+     return kontakts;
+   }
 }
 
 

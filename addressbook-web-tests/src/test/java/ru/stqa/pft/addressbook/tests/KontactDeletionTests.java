@@ -1,5 +1,6 @@
 package ru.stqa.pft.addressbook.tests;
 
+
 import org.openqa.selenium.support.ui.Wait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -22,15 +23,20 @@ public class KontactDeletionTests extends TestBase {
       app.getKontactHelper().CreateKontact(new KontaktData("bla","blablalbla","lastname", "nick_name", "test3"));
       app.getNavigationHelper().goTohomePage();
     }
-    List<GroupData> before = app.getGroupHelper().getGroupList();
+    List<KontaktData> before = app.getKontactHelper().getKontaktList();
     app.getGroupHelper().selectGroup(before.size() -1);
     app.getKontactHelper().deleteSelectedKontact();
     app.getKontactHelper().acceptNext();
 
-    List<GroupData> after = app.getGroupHelper().getGroupList();
+
+    List<KontaktData> after = app.getKontactHelper().getKontaktList();
 
     Assert.assertEquals(after.size(), before.size() - 1);
 
+    before.remove(before.size() -1);
+    Assert.assertEquals(before,after);
   }
+
+
 
 }
