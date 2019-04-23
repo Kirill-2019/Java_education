@@ -106,7 +106,8 @@ public class KontactHelper extends HelperBase {
          WebElement element = elements.get(i);
          int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
          List<WebElement> td = element.findElements(By.cssSelector("td"));
-         KontaktData kontakt = new KontaktData(id,td.get(2).getText() ,null,td.get(1).getText(),null,null );
+        // KontaktData kontakt = new KontaktData(id,td.get(2).getText() ,null,td.get(1).getText(),null,null );
+         KontaktData kontakt = new KontaktData(id,td.get(2).getText() ,td.get(1).getText());
          kontakts.add(kontakt);
 
       }

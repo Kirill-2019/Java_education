@@ -29,6 +29,15 @@ public class KontaktData {
       this.id = id;
    }
 
+   public KontaktData(Integer id, String firstname, String lastname) {
+      this.firstname = firstname;
+      this.middlename = null;
+      this.lastname = lastname;
+      this.nickname = null;
+      this.group = null;
+      this.id = id;
+   }
+
    public String getFirstname() {
       return firstname;
    }
