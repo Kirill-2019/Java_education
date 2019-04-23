@@ -64,7 +64,13 @@ public class GroupHelper extends HelperBase {
       submitGroupCreation();
       returnToGroupPage();
    }
-
+   public void modifyGroup(int index, GroupData group) {
+     selectGroup(index);
+      initgroupmodification();
+      fillGroupForm(group);
+      UpdateGroup();
+      returnToGroupPage();
+   }
 
    public int getGroupCount() {
       return WD.findElements(By.name("selected[]")).size();
