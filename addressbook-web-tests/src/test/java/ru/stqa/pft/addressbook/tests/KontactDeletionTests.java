@@ -1,11 +1,8 @@
 package ru.stqa.pft.addressbook.tests;
 
 
-import org.openqa.selenium.support.ui.Wait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import ru.stqa.pft.addressbook.appmanager.NavigationHelper;
-import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.KontaktData;
 
 import java.util.List;
@@ -19,12 +16,12 @@ public class KontactDeletionTests extends TestBase {
 
 
 
-    if  (! app.getGroupHelper().isThereAGroup()){
+    if  (! app.group().isThereAGroup()){
       app.getKontactHelper().CreateKontact(new KontaktData("bla","blablalbla","lastname", "nick_name", "test3"));
-      app.getNavigationHelper().goTohomePage();
+      app.goTO().goTohomePage();
     }
     List<KontaktData> before = app.getKontactHelper().getKontaktList();
-    app.getGroupHelper().selectGroup(before.size() -1);
+    app.group().selectGroup(before.size() -1);
     app.getKontactHelper().deleteSelectedKontact();
     app.getKontactHelper().acceptNext();
 

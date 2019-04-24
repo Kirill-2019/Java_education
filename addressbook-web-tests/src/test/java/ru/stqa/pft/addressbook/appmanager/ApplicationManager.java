@@ -67,11 +67,11 @@ public class ApplicationManager {
       return kontactHelper;
    }
 
-   public GroupHelper getGroupHelper() {
+   public GroupHelper group() {
       return groupHelper;
    }
 
-   public NavigationHelper getNavigationHelper() {
+   public NavigationHelper goTO() {
       return navigationHelper;
    }
 }

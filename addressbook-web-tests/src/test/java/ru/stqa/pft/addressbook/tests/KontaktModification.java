@@ -2,7 +2,6 @@ package ru.stqa.pft.addressbook.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.*;
-import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.KontaktData;
 
 import java.util.Comparator;
@@ -15,21 +14,21 @@ public class KontaktModification extends TestBase {
 
 
 
-      if  (! app.getGroupHelper().isThereAGroup()){
+      if  (! app.group().isThereAGroup()){
          app.getKontactHelper().CreateKontact(new KontaktData("bla","blablalbla","lastname", "nick_name", "test3"));
-         app.getNavigationHelper().goTohomePage();
+         app.goTO().goTohomePage();
       }
 
       List<KontaktData> before = app.getKontactHelper().getKontaktList();
 
-      app.getGroupHelper().selectGroup(before.size()-1);
+      app.group().selectGroup(before.size()-1);
       app.getKontactHelper().initkontaktmodification(before.size()-1);
 
       KontaktData kontakt = new KontaktData(before.get(before.size()-1).getId(),"---bla---", "blalbla", "test","TesT",null);
 
       app.getKontactHelper().fillGroupForm(kontakt,false);
       app.getKontactHelper().updatekontakt();
-      app.getNavigationHelper().goTohomePage();
+      app.goTO().goTohomePage();
 
 
 
