@@ -1,42 +1,74 @@
 package ru.stqa.pft.addressbook.model;
 
-import java.security.acl.Group;
 import java.util.Objects;
 
 public class KontaktData {
-   private final String firstname;
-   private final String middlename;
-   private final String lastname;
-   private final String nickname;
-   private final String group;
+   private String firstname;
+   private String middlename;
+   private String lastname;
+   private String nickname;
+   private String group;
    private Integer id;
 
-   public KontaktData(String firstname, String middlename, String lastname, String nickname, String group) {
-      this.firstname = firstname;
-      this.middlename = middlename;
-      this.lastname = lastname;
-      this.nickname = nickname;
-      this.group = group;
-      this.id = Integer.MAX_VALUE;
+   public KontaktData withId(int id) {
+      this.id = id;
+      return this;
    }
 
-   public KontaktData(Integer id, String firstname, String middlename, String lastname, String nickname, String group) {
+   public KontaktData withFirstname(String firstname) {
       this.firstname = firstname;
-      this.middlename = middlename;
-      this.lastname = lastname;
-      this.nickname = nickname;
-      this.group = group;
-      this.id = id;
+      return this;
    }
 
-   public KontaktData(Integer id, String firstname, String lastname) {
-      this.firstname = firstname;
-      this.middlename = null;
-      this.lastname = lastname;
-      this.nickname = null;
-      this.group = null;
-      this.id = id;
+   public KontaktData withMiddlename(String middlename) {
+      this.middlename = middlename;
+      return this;
    }
+
+   public KontaktData withLastname(String lastname) {
+      this.lastname = lastname;
+      return this;
+   }
+
+   public KontaktData withNickname(String nickname) {
+      this.nickname = nickname;
+      return this;
+   }
+
+   public KontaktData withGroup(String group) {
+      this.group = group;
+      return this;
+   }
+
+
+//  public KontaktData(String firstname, String middlename, String lastname, String nickname, String group) {
+//      this.firstname = firstname;
+//      this.middlename = middlename;
+//      this.lastname = lastname;
+//      this.nickname = nickname;
+//      this.group = group;
+//      this.id = Integer.MAX_VALUE;
+//   }
+//
+//   public KontaktData(Integer id, String firstname, String middlename, String lastname, String nickname, String group) {
+//      this.firstname = firstname;
+//      this.middlename = middlename;
+//      this.lastname = lastname;
+//      this.nickname = nickname;
+//      this.group = group;
+//      this.id = id;
+//   }
+//
+//   public KontaktData(Integer id, String firstname, String lastname) {
+//      this.firstname = firstname;
+//      this.middlename = null;
+//      this.lastname = lastname;
+//      this.nickname = null;
+//      this.group = null;
+//      this.id = id;
+//   }
+
+
 
    public String getFirstname() {
       return firstname;

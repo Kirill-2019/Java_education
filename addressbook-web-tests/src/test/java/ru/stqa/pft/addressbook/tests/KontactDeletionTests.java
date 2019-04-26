@@ -1,9 +1,14 @@
 package ru.stqa.pft.addressbook.tests;
 
 
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.KontaktData;
+import ru.stqa.pft.addressbook.model.Kontakts;
 
 import java.util.List;
 
@@ -11,27 +16,24 @@ import static org.testng.Assert.assertTrue;
 
 public class KontactDeletionTests extends TestBase {
 
+  @BeforeMethod
+  public void ensurePreconditions(){
+    if (app.getKontactHelper().all().size() ==0){
+      app.getKontactHelper().CreateKontact(new KontaktData().withFirstname("bla").withMiddlename("midddlename").withLastname("lastname").withNickname("NICK").withGroup("test3"));
+      app.goTO().goTohomePage();
+    }
+  }
+
   @Test
   public void testKontactDeletion() throws Exception {
 
-
-
-    if  (! app.group().isThereAGroup()){
-      app.getKontactHelper().CreateKontact(new KontaktData("bla","blablalbla","lastname", "nick_name", "test3"));
-      app.goTO().goTohomePage();
-    }
-    List<KontaktData> before = app.getKontactHelper().getKontaktList();
-    app.group().selectGroup(before.size() -1);
-    app.getKontactHelper().deleteSelectedKontact();
+    Kontakts before = app.getKontactHelper().all();
+    KontaktData deletedKontakt = before.iterator().next();
+    app.getKontactHelper().delete(deletedKontakt);
     app.getKontactHelper().acceptNext();
-
-
-    List<KontaktData> after = app.getKontactHelper().getKontaktList();
-
-    Assert.assertEquals(after.size(), before.size() - 1);
-
-    before.remove(before.size() -1);
-    Assert.assertEquals(before,after);
+    Kontakts after = app.getKontactHelper().all();
+    Assert.assertEquals(after.size(), before.size() -1);
+    MatcherAssert.assertThat(after, CoreMatchers.equalTo(before.without(deletedKontakt)));
   }
 
 

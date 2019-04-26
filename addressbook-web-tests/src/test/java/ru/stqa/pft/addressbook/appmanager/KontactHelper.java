@@ -10,14 +10,14 @@ import ru.stqa.pft.addressbook.model.KontaktData;
 
 
 import org.openqa.selenium.*;
+import ru.stqa.pft.addressbook.model.Kontakts;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 
 
 public class KontactHelper extends HelperBase {
    private boolean acceptNextAlert = true;
+
    public KontactHelper(WebDriver WD) {
       super(WD);
    }
@@ -70,36 +70,47 @@ public class KontactHelper extends HelperBase {
    }
 
    public void deleteSelectedKontact() {
-     // click(By.name("delete"));
-     // click(By.xpath(".//*[normalize-space(text()) and normalize-space(.)='Select all'])[1]/following::input[2])"));
+      // click(By.name("delete"));
+      // click(By.xpath(".//*[normalize-space(text()) and normalize-space(.)='Select all'])[1]/following::input[2])"));
       click(By.xpath("//input[@value='Delete']"));
    }
-   public void KontactClic() {  click(By.name("container"));}
+
+   public void KontactClic() {
+      click(By.name("container"));
+   }
 
 
-   public void initkontaktmodification(int index) {
-
-      // click(By.id("maintable"));
-      List<WebElement> elements = WD.findElements(new By.ByXPath("//img[@alt='Edit']"));
-      elements.get(index).click();
-
+   public void initkontaktmodification(int id) {
+      WebElement element = getStingInTable(id);
+      element.findElement(By.xpath("//img[@alt='Edit']")).click();
    }
 
    public void updatekontakt() {
       click(By.name("update"));
    }
 
-   public void CreateKontact(KontaktData group) {
+   public void CreateKontact(KontaktData kontakt) {
       initkontcreation();
-      fillGroupForm(new KontaktData("bla","blablalbla","lastname", "nick_name", "test3"),true );
+      fillGroupForm(kontakt, true);
       submitKontaktCreation();
       click((By.linkText("home page")));
+
    }
 
-   public List<KontaktData> getKontaktList() {
+   public void modify(KontaktData kontakt) {
+      selectKontaktByID(kontakt.getId());
+      initkontaktmodification(kontakt.getId());
+      fillGroupForm(kontakt,false);
+      UpdateKontakt();
+      click((By.linkText("home page")));
 
+   }
 
+   private void UpdateKontakt() {
+      click(By.name("update"));
+   }
 
+   /*public List<KontaktData> getKontaktList() {
       List<KontaktData> kontakts = new ArrayList<KontaktData>();
       List<WebElement> elements = WD.findElements(By.cssSelector("tr"));
       for (int i =1;i < elements.size();i++){
@@ -112,6 +123,46 @@ public class KontactHelper extends HelperBase {
 
       }
      return kontakts;
+   }
+*/
+   public Kontakts all() {
+      Kontakts kontakts = new Kontakts();
+      List<WebElement> elements = WD.findElements(By.cssSelector("tr"));
+      for (int i = 1; i < elements.size(); i++) {
+         WebElement element = elements.get(i);
+         int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+         List<WebElement> td = element.findElements(By.cssSelector("td"));
+         kontakts.add(new KontaktData().withId(id).withFirstname(td.get(2).getText()).withLastname(td.get(1).getText()));
+      }
+      return kontakts;
+
+   }
+
+
+   public void delete(KontaktData Kontakt) {
+
+      selectKontaktByID(Kontakt.getId());
+      deleteSelectedKontact();
+   }
+
+   private void selectKontaktByID(int id) {
+     WebElement element = getStingInTable(id);
+     element.findElement(By.tagName("input")).click();
+
+   }
+
+   private WebElement getStingInTable(int id) {
+      List<WebElement> elements = WD.findElements(By.cssSelector("tr"));
+
+      for (int i = 1; i < elements.size(); i++) {
+         WebElement element = elements.get(i);
+         int ident = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+         if (id == ident) {
+            return element;
+         }
+      }
+
+      return null;
    }
 }
 
