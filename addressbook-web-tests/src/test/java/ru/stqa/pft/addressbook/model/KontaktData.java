@@ -1,8 +1,11 @@
 package ru.stqa.pft.addressbook.model;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 import java.io.File;
 import java.util.Objects;
 
+@XStreamAlias("kontakt")
 public class KontaktData {
    private String firstname;
    private String middlename;
@@ -19,7 +22,7 @@ public class KontaktData {
    private String email3;
    private String allmails;
    private File   photo;
-
+   
    private Integer id;
 
 
