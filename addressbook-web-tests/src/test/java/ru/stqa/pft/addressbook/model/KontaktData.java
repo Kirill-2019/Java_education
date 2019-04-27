@@ -8,6 +8,15 @@ public class KontaktData {
    private String lastname;
    private String nickname;
    private String group;
+   private String homePhone;
+   private String mobilePhone;
+   private String workPhone;
+   private String allPhones;
+   private String address;
+   private String email;
+   private String email2;
+   private String email3;
+   private String allmails;
    private Integer id;
 
    public KontaktData withId(int id) {
@@ -40,8 +49,50 @@ public class KontaktData {
       return this;
    }
 
+   public KontaktData withHomePhone(String home) {
+      this.homePhone = home;
+      return this;
+   }
 
-//  public KontaktData(String firstname, String middlename, String lastname, String nickname, String group) {
+   public KontaktData withMobilePhone(String mobile) {
+      this.mobilePhone = mobile;
+      return this;
+   }
+   public KontaktData withWorkPhone(String work) {
+      this.workPhone = work;
+      return this;
+   }
+
+   public KontaktData withallPhones(String allPhones) {
+      this.allPhones = allPhones;
+      return this;
+   }
+
+   public KontaktData withemail(String email) {
+      this.email = email;
+      return this;
+   }
+   public KontaktData withemail2(String email2) {
+      this.email2 = email2;
+      return this;
+   }
+   public KontaktData withemail3(String email3) {
+      this.email3 = email3;
+      return this;
+   }
+
+   public KontaktData withallmails(String allmails) {
+      this.allmails = allmails;
+      return this;
+   }
+
+   public KontaktData withaddress(String address) {
+      this.address = address;
+      return this;
+   }
+
+//  publ
+//  ic KontaktData(String firstname, String middlename, String lastname, String nickname, String group) {
 //      this.firstname = firstname;
 //      this.middlename = middlename;
 //      this.lastname = lastname;
@@ -86,6 +137,10 @@ public class KontaktData {
       return nickname;
    }
 
+   public String getallPhones() {
+      return allPhones;
+   }
+
    public String getGroup() {
       return group;
    }
@@ -93,6 +148,26 @@ public class KontaktData {
    public int getId() {
       return id;
    }
+
+   public String getEmail() {
+      return email;
+   }
+
+   public String getEmail2() {
+      return email2;
+   }
+   public String getEmail3() {
+      return email3;
+   }
+
+   public String getAllmails() {
+      return allmails;
+   }
+
+   public String getAddress() {
+      return address;
+   }
+
 
    public void setId(Integer id) {
       this.id = id;
@@ -112,5 +187,20 @@ public class KontaktData {
    public int hashCode() {
       return Objects.hash(firstname, lastname, id);
    }
+
+
+   public String getHomePhone() {
+      return homePhone;
+   }
+
+   public String getMobilePhone() {
+      return mobilePhone;
+   }
+
+   public String getWorkPhone() {
+      return workPhone;
+   }
+
+
 }
 
