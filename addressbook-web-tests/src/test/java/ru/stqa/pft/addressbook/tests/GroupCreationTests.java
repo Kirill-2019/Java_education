@@ -4,15 +4,15 @@ package ru.stqa.pft.addressbook.tests;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
+import sun.rmi.runtime.NewThreadAction;
 
 //import java.util.Comparator;
 //import java.util.FormatFlagsConversionMismatchException;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Matcher;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -21,21 +21,29 @@ import static org.hamcrest.MatcherAssert.*;
 
 public class GroupCreationTests  extends TestBase {
 
-  @Test
-  public void testGroupCreation() {
+  @DataProvider
+  public Iterator<Object[]> validGroups(){
+    List<Object[]> list = new ArrayList<Object[]>();
+    list.add(new Object[]{new GroupData().withName("test1").withHeader("header1").withFooter("footer1")} );
+    list.add(new Object[]{new GroupData().withName("test2").withHeader("header2").withFooter("footer2")} );
+    list.add(new Object[]{new GroupData().withName("test3").withHeader("header3").withFooter("footer3")} );
+    return list.iterator();
+  }
 
-    app.goTO().goToGroupPage();
 
-    Groups before = app.group().all();
-    GroupData group = new GroupData().withName("test2");
-    app.group().create(group);
-    assertThat(app.group().count(),equalTo(before.size()+1));
-    Groups after = app.group().all();
-    assertThat(after, equalTo(before.withadded(group.withId(after.stream().mapToInt((g)-> g.getId()).max().getAsInt()))));
+  @Test(dataProvider = "validGroups")
+  public void testGroupCreation(GroupData group) {
+      app.goTO().goToGroupPage();
+      Groups before = app.group().all();
+      app.group().create(group);
+      assertThat(app.group().count(),equalTo(before.size()+1));
+      Groups after = app.group().all();
+      assertThat(after, equalTo(before.withadded(group.withId(after.stream().mapToInt((g)-> g.getId()).max().getAsInt()))));
+
 
   }
 
-  @Test
+  @Test(enabled = false)
   public void testGroupBadCreation(){
 
     app.goTO().goToGroupPage();
