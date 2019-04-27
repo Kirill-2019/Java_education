@@ -27,9 +27,12 @@ public class KontactHelper extends HelperBase {
       type(By.name("middlename"), kontaktData.getMiddlename());
       type(By.name("lastname"), kontaktData.getLastname());
       type(By.name("nickname"), kontaktData.getNickname());
+      attach(By.name("photo"),kontaktData.getPhoto());
 
       if (creation) {
-         new Select(WD.findElement(By.name("new_group"))).selectByVisibleText(kontaktData.getGroup());
+         if (kontaktData.getGroup() !=null) {
+            new Select(WD.findElement(By.name("new_group"))).selectByVisibleText(kontaktData.getGroup());
+         }
       } else {
          Assert.assertFalse(iselementPresent(By.name("new_group")));
       }
