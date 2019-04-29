@@ -12,3 +12,30 @@ dependencies {
     implementation 'com.thoughtworks.xstream:xstream:1.4.11.1'
     implementation 'com.google.code.gson:gson:2.8.5'
 }
+
+task testGroups(type: Test ) {
+    use TestNG {
+        suites 'src/test/resources/testng-Groups.xml'
+    }
+
+    if (project.hasProperty('browser')) {
+        systemProperty 'browser', "${browser}"
+    }
+    if (project.hasProperty('target')) {
+        systemProperty 'target', "${target}"
+    }
+
+}
+
+
+task testKontakts(type: Test ) {
+    use TestNG {
+        suites 'src/test/resources/testng_Kontakts.xml'
+    }
+    if (project.hasProperty('browser')) {
+        systemProperty 'browser', "${browser}"
+    }
+    if (project.hasProperty('target')) {
+        systemProperty 'target', "${target}"
+    }
+}
