@@ -6,6 +6,8 @@ import com.google.gson.Gson;
 import com.thoughtworks.xstream.XStream;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -25,6 +27,8 @@ import static org.hamcrest.MatcherAssert.*;
 
 
 public class GroupCreationTests  extends TestBase {
+
+
 
   @DataProvider
   public Iterator<Object[]> validGroupsFromXML() throws IOException {
@@ -62,6 +66,8 @@ public class GroupCreationTests  extends TestBase {
 
   @Test(dataProvider = "validGroupsFromJson")
   public void testGroupCreation(GroupData group) {
+
+
       app.goTO().goToGroupPage();
       Groups before = app.group().all();
       app.group().create(group);
