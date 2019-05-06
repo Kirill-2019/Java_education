@@ -48,6 +48,7 @@ public class KontaktData {
    private String email3;
    @Transient
    private String allmails;
+   @Transient
    @Column(name = "photo")
    @Type(type = "text")
    private String photo;
@@ -59,6 +60,10 @@ public class KontaktData {
 
 
    public File getPhoto() {
+      if (photo==null) {
+         return null;
+      }
+
       return new File(photo);
    }
 
