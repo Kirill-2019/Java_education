@@ -8,10 +8,17 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import ru.stqa.pft.addressbook.appmanager.ApplicationManager;
+import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
+import ru.stqa.pft.addressbook.model.Kontakts;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.stream.Collectors;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 
 public class TestBase {
@@ -47,5 +54,30 @@ public class TestBase {
 
    @AfterMethod
    public void logtestStop(Method m){logger.info("stop test %m" + m.getName());}
+
+   public void veryfyGroupListInUI() {
+      if (Boolean.getBoolean("verifyUI")){
+         Groups dbGroups = app.db().groups();
+         Groups UIGroups = app.group().all();
+         assertThat(UIGroups, equalTo(dbGroups.stream()
+                 .map((g)-> new GroupData().withId(g.getId()).withName(g.getName())).collect(Collectors.toSet())));
+
+      }
+   }
+
+   public void veryfyKontaktListInUI() {
+      if (Boolean.getBoolean("verifyUI")){
+         Kontakts UIKontakts = app.getKontactHelper().all();
+         Kontakts dbKontakts = app.db().kontakts();
+         //assertThat(UIKontakts, equalTo(dbGroups.stream().map((g)-> new GroupData().withId(g.getId()).withName(g.getName())).collect(Collectors.toSet())));
+         assertThat(UIKontakts, equalTo(dbKontakts));
+
+         int a=0;
+
+      }
+
+
+   }
+
 
 }

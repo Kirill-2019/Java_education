@@ -24,6 +24,8 @@ public class Kontakts extends ForwardingSet<KontaktData> {
 
    }
 
+
+
    @Override
    protected Set<KontaktData> delegate() {
       return delegate;

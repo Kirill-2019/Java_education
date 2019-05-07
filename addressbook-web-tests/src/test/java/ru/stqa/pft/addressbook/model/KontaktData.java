@@ -7,7 +7,9 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "addressbook")
@@ -21,8 +23,6 @@ public class KontaktData {
    private String lastname;
    private String nickname;
 
-   @Transient
-   private String group;
    @Column(name = "home")
    @Type(type = "text")
    private String homePhone;
@@ -57,6 +57,10 @@ public class KontaktData {
    @Id
    @Column(name = "id")
    private Integer id;
+
+   @ManyToMany(fetch = FetchType.EAGER)
+   @JoinTable(name="address_in_groups",joinColumns = @JoinColumn (name = "id"),inverseJoinColumns = @JoinColumn(name = "group_id"))
+   private Set<GroupData> groups = new HashSet<GroupData>();
 
 
    public File getPhoto() {
@@ -97,10 +101,6 @@ public class KontaktData {
       return this;
    }
 
-   public KontaktData withGroup(String group) {
-      this.group = group;
-      return this;
-   }
 
    public KontaktData withHomePhone(String home) {
       this.homePhone = home;
@@ -141,6 +141,11 @@ public class KontaktData {
 
    public KontaktData withaddress(String address) {
       this.address = address;
+      return this;
+   }
+
+   public KontaktData inGroup(GroupData group) {
+      groups.add(group);
       return this;
    }
 
@@ -194,9 +199,7 @@ public class KontaktData {
       return allPhones;
    }
 
-   public String getGroup() {
-      return group;
-   }
+
 
    public int getId() {
       return id;
@@ -219,6 +222,10 @@ public class KontaktData {
 
    public String getAddress() {
       return address;
+   }
+
+   public Groups getGroups() {
+      return new Groups(groups);
    }
 
 
@@ -259,9 +266,10 @@ public class KontaktData {
       return "KontaktData{" +
                "firstname='" + firstname + '\'' +
                "lastname='" + lastname + '\'' +
-
+               "id='" + id + '\'' +
               '}';
    }
+
 
 
 }

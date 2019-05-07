@@ -33,5 +33,6 @@ public class GroupDeletionTests extends TestBase {
    // Groups after = app.group().all();
     Groups after = app.db().groups();
     MatcherAssert.assertThat(after, CoreMatchers.equalTo(before.without(deletedGroup)));
+    veryfyGroupListInUI();
   }
 }

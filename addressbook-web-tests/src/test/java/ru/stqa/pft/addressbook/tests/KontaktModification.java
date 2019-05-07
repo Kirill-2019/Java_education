@@ -17,7 +17,7 @@ public class KontaktModification extends TestBase {
    @BeforeMethod
    public void ensurePreconditions(){
       if (app.db().kontakts().size() ==0){
-         app.getKontactHelper().CreateKontact(new KontaktData().withFirstname("bla").withMiddlename("midddlename").withLastname("lastname").withNickname("NICK").withGroup("test3"));
+         app.getKontactHelper().CreateKontact(new KontaktData().withFirstname("bla").withMiddlename("midddlename").withLastname("lastname").withNickname("NICK"));
          app.goTO().goTohomePage();
       }
    }
@@ -33,7 +33,11 @@ public class KontaktModification extends TestBase {
      // Kontakts after = app.getKontactHelper().all();
       Kontakts after = app.db().kontakts();
       assertEquals(after.size(), before.size());
+
+      Kontakts test = before.without(modifiedKontakt).withadded(kontakt);
+
       assertThat(after, equalTo(before.without(modifiedKontakt).withadded(kontakt)));
+      veryfyKontaktListInUI();
 
 
       /*app.group().selectGroupByID(modifiedKontakt.getId());

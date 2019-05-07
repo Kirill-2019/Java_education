@@ -76,6 +76,7 @@ public class GroupCreationTests  extends TestBase {
       //Groups after = app.group().all();
       Groups after = app.db().groups();
       assertThat(after, equalTo(before.withadded(group.withId(after.stream().mapToInt((g)-> g.getId()).max().getAsInt()))));
+      veryfyGroupListInUI();
 
 
   }

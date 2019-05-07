@@ -3,6 +3,7 @@ package ru.stqa.pft.addressbook.tests;
 import com.thoughtworks.xstream.XStream;
 import org.testng.annotations.*;
 import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 import ru.stqa.pft.addressbook.model.KontaktData;
 import ru.stqa.pft.addressbook.model.Kontakts;
 
@@ -62,14 +63,21 @@ public class KontactCreationTests extends TestBase{
   @Test (dataProvider = "validKontaktsFromXML")
   public void testKontactCreation(KontaktData kontakt) throws Exception {
 
+    Groups groups = app.db().groups();
+    if (groups.size()==0){
+      GroupData group = new GroupData().withName("test2'");
+      app.group().create(group);
+    }
+
     //Kontakts before = app.getKontactHelper().all();
     Kontakts before = app.db().kontakts();
     File photo = new File("src/test/resources/1515055240299396095.jpg");
-    app.getKontactHelper().CreateKontact(kontakt.withPhoto(photo));
+    app.getKontactHelper().CreateKontact(kontakt.withPhoto(photo).inGroup(groups.iterator().next()));
     //Kontakts after = app.getKontactHelper().all();
     Kontakts after = app.db().kontakts();
     assertThat(after.size(),equalTo(before.size()+1));
     assertThat(after, equalTo(before.withadded(kontakt.withId(after.stream().mapToInt((g)-> g.getId()).max().getAsInt()))));
+    veryfyKontaktListInUI();
 
   }
 

@@ -29,12 +29,14 @@ public class KontactHelper extends HelperBase {
       type(By.name("nickname"), kontaktData.getNickname());
       attach(By.name("photo"),kontaktData.getPhoto());
 
+
       if (creation) {
-         if (kontaktData.getGroup() !=null) {
-            new Select(WD.findElement(By.name("new_group"))).selectByVisibleText(kontaktData.getGroup());
+         if (kontaktData.getGroups().size() > 0) {
+            Assert.assertTrue(kontaktData.getGroups().size() == 1);
+              new Select(WD.findElement(By.name("new_group"))).selectByVisibleText(kontaktData.getGroups().iterator().next().getName());
          }
       } else {
-         Assert.assertFalse(iselementPresent(By.name("new_group")));
+        Assert.assertFalse(iselementPresent(By.name("new_group")));
       }
 
    }
@@ -86,6 +88,8 @@ public class KontactHelper extends HelperBase {
    public void initkontaktmodification(int id) {
       WebElement element = getStingInTable(id);
       element.findElement(By.xpath("//img[@alt='Edit']")).click();
+      //element.findElement(By.tagName("img")).click();
+
    }
 
    public void initkontaktmodificationById(int id) {
@@ -107,7 +111,7 @@ public class KontactHelper extends HelperBase {
 
    public void modify(KontaktData kontakt) {
       selectKontaktByID(kontakt.getId());
-      initkontaktmodification(kontakt.getId());
+      initkontaktmodificationById(kontakt.getId());
       fillGroupForm(kontakt,false);
       UpdateKontakt();
       click((By.linkText("home page")));
@@ -160,7 +164,7 @@ public class KontactHelper extends HelperBase {
       deleteSelectedKontact();
    }
 
-   private void selectKontaktByID(int id) {
+   public void selectKontaktByID(int id) {
      WebElement element = getStingInTable(id);
      element.findElement(By.tagName("input")).click();
 
@@ -199,6 +203,35 @@ public class KontactHelper extends HelperBase {
               .withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work).withaddress(address).withemail(email)
               .withemail2(email2).withemail3(email3);
 
+   }
+
+   public void addContactInGroup() {
+      click(By.name("add"));
+   }
+   public void goHome() {
+      click(By.linkText("home"));
+   }
+
+   public void selectGroupByid(int id) {
+
+
+       click(By.xpath("//select[@name = 'to_group'] //option[@value='"+id+"']"));
+
+
+      //  click(By.xpath("//option[@value='"+id+"']"));
+
+   }
+
+
+   public int getIdNewGroup() {
+      List<WebElement> list = WD.findElements(By.xpath("//select[@name = 'to_group'] //option"));
+
+      int idNewGroup = 0;
+      for (WebElement element: list ){
+         int currVal = Integer.parseInt(element.getAttribute("value")) ;
+         if (currVal > idNewGroup) {idNewGroup = currVal;}
+      }
+      return idNewGroup;
    }
 }
 

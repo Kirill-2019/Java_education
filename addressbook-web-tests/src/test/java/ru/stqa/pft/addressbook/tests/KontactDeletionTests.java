@@ -19,7 +19,7 @@ public class KontactDeletionTests extends TestBase {
   @BeforeMethod
   public void ensurePreconditions(){
     if (app.db().kontakts().size() ==0){
-      app.getKontactHelper().CreateKontact(new KontaktData().withFirstname("bla").withMiddlename("midddlename").withLastname("lastname").withNickname("NICK").withGroup("test3"));
+      app.getKontactHelper().CreateKontact(new KontaktData().withFirstname("bla").withMiddlename("midddlename").withLastname("lastname").withNickname("NICK"));
       app.goTO().goTohomePage();
     }
   }
@@ -36,6 +36,7 @@ public class KontactDeletionTests extends TestBase {
     Kontakts after = app.db().kontakts();
     Assert.assertEquals(after.size(), before.size() -1);
     MatcherAssert.assertThat(after, CoreMatchers.equalTo(before.without(deletedKontakt)));
+    veryfyKontaktListInUI();
   }
 
 
