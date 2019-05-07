@@ -42,15 +42,15 @@ public class HbConnectionTest {
 
 
 
-     /* Session session = sessionFactory.openSession();
-      session.beginTransaction();
-      List<GroupData> result = session.createQuery( "from GroupData" ).list();
-      for ( GroupData group : result ) {
+     /* Session session1 = sessionFactory.openSession();
+      session1.beginTransaction();
+      List<GroupData> result1 = session1.createQuery( "from GroupData" ).list();
+      for ( GroupData group : result1 ) {
          System.out.println(group);
       }
-      session.getTransaction().commit();
-      session.close();
-      */
+      session1.getTransaction().commit();
+      session1.close();
+*/
 
       Session session = sessionFactory.openSession();
       session.beginTransaction();

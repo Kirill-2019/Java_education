@@ -10,8 +10,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-@XStreamAlias("group")
 @Entity
+@XStreamAlias("group")
 @Table(name = "group_list")
 public class GroupData {
    @XStreamOmitField
@@ -22,7 +22,9 @@ public class GroupData {
    @Column(name = "group_name")
    private  String name;
 
-   @ManyToMany(mappedBy = "groups")
+ // @ManyToMany(mappedBy = "groups")
+   @ManyToMany(fetch = FetchType.EAGER)
+   @JoinTable(name="address_in_groups",joinColumns = @JoinColumn (name = "group_id"),inverseJoinColumns = @JoinColumn(name = "id"))
    private Set<KontaktData> kontakts = new HashSet<KontaktData>();
 
    @Expose
@@ -54,6 +56,8 @@ public class GroupData {
       return this;
    }
 
+   //@ManyToMany(fetch = FetchType.EAGER)
+   //@JoinTable(name="address_in_groups",joinColumns = @JoinColumn (name = "group_id"),inverseJoinColumns = @JoinColumn(name = "id"))
    public Kontakts getKontakts() {
       return new Kontakts(kontakts);
    }

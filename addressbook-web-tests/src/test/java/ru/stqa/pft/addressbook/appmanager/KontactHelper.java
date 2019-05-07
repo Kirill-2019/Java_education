@@ -233,6 +233,14 @@ public class KontactHelper extends HelperBase {
       }
       return idNewGroup;
    }
+
+   public void selectGroupByidUP(int id) {
+      click(By.xpath("//select[@name = 'group'] //option[@value='"+id+"']"));
+   }
+
+   public void removeKontakt() {
+      click(By.name("remove"));
+   }
 }
 
 
