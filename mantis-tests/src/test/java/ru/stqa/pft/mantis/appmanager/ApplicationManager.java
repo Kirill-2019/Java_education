@@ -5,6 +5,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.BrowserType;
+import org.openqa.selenium.remote.HttpSessionId;
 
 import java.io.File;
 import java.io.FileReader;
@@ -49,16 +50,16 @@ public class ApplicationManager {
    public void stop() {
       WD.quit();
    }
-}
 
-   //public boolean isElementPresent(By by) {
-   //  try {
-   //   WD.findElement(by);
-   //    return true;
-   //  } catch (NoSuchElementException e) {
-   //   return false;
-   //  }
-   //}
+   public httpSession newSession(){
+      return new httpSession(this);
+   }
+
+   public Object getProperty(String key) {
+      return properties.getProperty(key);
+
+   }
+}
 
 
 

@@ -6,6 +6,7 @@ import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
@@ -16,29 +17,18 @@ import java.util.ArrayDeque;
 import java.util.List;
 import java.util.Set;
 
-public class addGroupContactTest extends TestBase {
+public abstract class addGroupContactTest extends TestBase {
 
    GroupData addedGroup = new GroupData();
 
-
-   @BeforeMethod
-   public void ensurePreconditions() {
-      Kontakts kontakts = app.db().kontakts();
-      Groups groups = app.db().groups();
-      if (kontakts.size() == 0) {
-         app.getKontactHelper().CreateKontact(new KontaktData().withFirstname("bla").withMiddlename("midddlename").withLastname("lastname").withNickname("NICK"));
-         app.goTO().goTohomePage();
-      }
-
-      if (groups.size() == 0) {
-         app.goTO().goToGroupPage();
-         app.group().create(new GroupData().withName("test1"));
-         app.getKontactHelper().goHome();
-      }
+   @BeforeTest
+   public void prepare(){
+      ensurePreconditions();
    }
 
    @Test
    public void testAddGroupContact() throws InterruptedException {
+
 
       Kontakts kontakts = app.db().kontakts();
       Groups groups = app.db().groups();
@@ -108,52 +98,5 @@ public class addGroupContactTest extends TestBase {
       MatcherAssert.assertThat(after, CoreMatchers.equalTo(before));
 
    }
-
-
-   // Теперь минимум 1 контакт связан с 1 группой
-   @Test
-   public void testDellGroupContact() throws InterruptedException {
-      int idGroup = 0;
-      KontaktData dellKontakt = new KontaktData();
-      Groups groups = app.db().groups();
-
-
-      Set<KontaktData> before = new Kontakts();
-      for (GroupData group : groups) {
-         before = group.getKontakts();
-         if (before.size() != 0) {
-
-            app.getKontactHelper().goHome();
-            idGroup = group.getId();
-            app.getKontactHelper().selectGroupByidUP(idGroup);
-            //удалим 1 контакт
-            dellKontakt = group.getKontakts().iterator().next();
-            app.getKontactHelper().selectKontaktByID(dellKontakt.getId());
-            app.getKontactHelper().removeKontakt();
-            app.getKontactHelper().goHome();
-
-            break;
-
-         }
-
-      }
-
-      groups = app.db().groups();
-      Set<KontaktData> after = null;
-      for (GroupData group : groups) {
-
-         if (group.getId() == idGroup) {
-            after = group.getKontakts();
-            break;
-         }
-      }
-
-
-      MatcherAssert.assertThat(((Kontakts) after).withadded(dellKontakt), CoreMatchers.equalTo(before));
-
-
-   }
-
-
 
 }

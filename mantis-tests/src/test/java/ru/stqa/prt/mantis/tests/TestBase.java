@@ -11,7 +11,6 @@ import ru.stqa.pft.addressbook.appmanager.ApplicationManager;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 import ru.stqa.pft.addressbook.model.Kontakts;
-import ru.stqa.pft.mantis.appmanager.ApplicationManager;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -50,5 +49,7 @@ public class TestBase {
       app.stop();
    }
 
+   @BeforeMethod
+   public void logteststart(Method m,Object[] p){logger.info("start test %m" + m.getName() + "with parametrs " + Arrays.asList(p));}
 
 }
