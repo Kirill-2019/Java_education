@@ -17,6 +17,8 @@ public class ApplicationManager {
 
    private Properties properties;
    private String browser;
+   private RegistrationHelper registrationHelper;
+   private FtpHelper FtpHelper;
 
 
    public ApplicationManager(String browser) throws IOException {
@@ -31,30 +33,54 @@ public class ApplicationManager {
       String target = System.getProperty("target", "local");
       properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
 
-      if (browser.equals(BrowserType.FIREFOX)) {
-         WD = new FirefoxDriver();
-      } else if (browser.equals(BrowserType.CHROME)) {
-         WD = new ChromeDriver();
-      } else {
-         WD = new InternetExplorerDriver();
-      }
 
-      WD.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-      //  WD.get("http://localhost/addressbook/");
-      WD.get(properties.getProperty("web.baseUrl"));
    }
 
 
    public void stop() {
-      WD.quit();
+      if (WD!=null){WD.quit();}
    }
 
    public HttpSession newSession(){
       return new HttpSession(this);
    }
 
-   public Object getProperty(String key) {
+   public String getProperty(String key) {
       return properties.getProperty(key);
+
+   }
+
+   public RegistrationHelper registration() {
+      if (registrationHelper==null){
+         registrationHelper = new RegistrationHelper(this);
+      }
+
+      return registrationHelper;
+   }
+
+   public FtpHelper ftp(){
+      if (FtpHelper == null){
+         FtpHelper = new FtpHelper(this);
+      }
+
+      return FtpHelper;
+   }
+
+   public WebDriver getDriver() {
+      if (WD==null){
+         if (browser.equals(BrowserType.FIREFOX)) {
+            WD = new FirefoxDriver();
+         } else if (browser.equals(BrowserType.CHROME)) {
+            WD = new ChromeDriver();
+         } else {
+            WD = new InternetExplorerDriver();
+         }
+
+         WD.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+         WD.get(properties.getProperty("web.baseUrl"));
+      }
+
+      return WD;
 
    }
 }
