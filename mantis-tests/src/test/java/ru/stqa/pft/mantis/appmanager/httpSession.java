@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
 public class httpSession {
    private CloseablehttpClient httpclient;
    private ApplicationManager app;
@@ -33,4 +34,8 @@ public class httpSession {
 
    }
 
+   public boolean isLoggedInAs(String administrator) {
+
+   }
 }
+*/
