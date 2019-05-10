@@ -49,8 +49,8 @@ public class ApplicationManager {
       WD.quit();
    }
 
-   public httpSession newSession(){
-      return new httpSession(this);
+   public HttpSession newSession(){
+      return new HttpSession(this);
    }
 
    public Object getProperty(String key) {

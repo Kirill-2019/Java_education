@@ -1,20 +1,19 @@
 package ru.stqa.prt.mantis.tests;
 
-/*
-import org.testng.Assert;
 import org.testng.annotations.Test;
-import ru.stqa.pft.mantis.appmanager.httpSession;
-
+import ru.stqa.pft.mantis.appmanager.HttpSession;
 import java.io.IOException;
+import static org.testng.Assert.assertTrue;
 
 public class LoginTests extends TestBase {
 
    @Test
    public void testLogin() throws IOException {
-      httpSession session = (httpSession) app.newSession();
-      Assert.assertTrue(((httpSession) session).login("administrator","root"));
-      Assert.assertTrue(session.isLoggedInAs("administrator"));
+      HttpSession session = (HttpSession) app.newSession();
+      assertTrue(((HttpSession) session).login("administrator","root"));
+      assertTrue(session.isLoggedInAs("administrator"));
+
+
    }
 
 }
-*/
