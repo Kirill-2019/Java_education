@@ -19,6 +19,8 @@ public class ApplicationManager {
    private String browser;
    private RegistrationHelper registrationHelper;
    private FtpHelper FtpHelper;
+   private MailHelper mailHelper;
+   private JamesHelper JamesHelper;
 
 
    public ApplicationManager(String browser) throws IOException {
@@ -83,6 +85,24 @@ public class ApplicationManager {
       return WD;
 
    }
+
+   public MailHelper mail(){
+      if (mailHelper ==null){
+         mailHelper = new MailHelper(this);
+      }
+
+      return mailHelper;
+   }
+   public JamesHelper james (){
+      if (JamesHelper == null){
+         JamesHelper = new JamesHelper(this);
+      }
+
+      return JamesHelper;
+   }
+
+
+
 }
 
 
