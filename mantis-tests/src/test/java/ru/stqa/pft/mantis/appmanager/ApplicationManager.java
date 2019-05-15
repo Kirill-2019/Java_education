@@ -1,5 +1,6 @@
 package ru.stqa.pft.mantis.appmanager;
 
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -21,6 +22,7 @@ public class ApplicationManager {
    private FtpHelper FtpHelper;
    private MailHelper mailHelper;
    private JamesHelper JamesHelper;
+   private ChangeHelper changeHelper;
 
 
    public ApplicationManager(String browser) throws IOException {
@@ -102,7 +104,14 @@ public class ApplicationManager {
    }
 
 
+   public ChangeHelper change() {
+      if(changeHelper == null){
+         changeHelper = new ChangeHelper(this);
 
+      }
+
+      return  changeHelper;
+   }
 }
 
 

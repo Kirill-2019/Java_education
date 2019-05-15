@@ -44,7 +44,7 @@ public class JamesHelper {
    public void createUser(String name, String password){
       initTelnetSession();
       write("adduser " + name + " " + password);
-      String result = readUntil("User " + name + "added");
+      String result = readUntil("User " + name + " added");
       closeTelnetSession();
    }
 
@@ -78,7 +78,7 @@ public class JamesHelper {
       readUntil("Password:");
       write(password);
 
-      readUntil("Welcome " + login + " . HELP for a list of commands");
+      readUntil("Welcome " + login + ". HELP for a list of commands");
 
 
 
@@ -100,8 +100,9 @@ public class JamesHelper {
       try{
          char lastChar = pattern.charAt(pattern.length() - 1);
          StringBuffer sb = new StringBuffer();
-         char ch = (char) in.read();
+
          while (true){
+            char ch = (char) in.read();
             System.out.println(ch);
             sb.append(ch);
             if (ch == lastChar){
@@ -119,7 +120,7 @@ public class JamesHelper {
    }
 
 
-   public List<MailMessage> waitForMail(String username, String password, int i) throws MessagingException {
+   public List<MailMessage> waitForMail(String username, String password, int timeout) throws MessagingException {
       long now = System.currentTimeMillis();
       while (System.currentTimeMillis() < now + timeout) {
          List <MailMessage> allMail = getAllMail(username, password);

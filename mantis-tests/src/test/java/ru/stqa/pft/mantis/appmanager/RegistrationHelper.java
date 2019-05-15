@@ -16,6 +16,7 @@ public class RegistrationHelper extends HelperBase {
       type(By.name("email"),email);
       click(By.cssSelector("input[value='Зарегистрироваться']"));
 
+
    }
 
    public void finish(String confirmationLink, String password) {
