@@ -1,30 +1,31 @@
 package ru.stqa.prt.mantis.tests;
 
 
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.model.Issue;
 import ru.stqa.model.Project;
 
 import javax.xml.rpc.ServiceException;
+import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.Set;
 
 import static org.testng.Assert.assertEquals;
 
 public class SoapTests extends TestBase {
+
+
    @Test
-   public void testGetProject() throws MalformedURLException, ServiceException, RemoteException {
-     // задача 0000002 в mantis имеет статус "новая'
-      if(!isIssueOpen(0000002)) {
-        Set<Project> projects = app.soap().getProjects();
-        System.out.println(projects.size());
-        for (Project project : projects) {
-           System.out.println(project.getName());
-        }
-     }
+   public void testGetProject() throws IOException, ServiceException {
+         // задача 0000001 в mantis имеет статус "решена'
+         skipIfNotFixed(0000001);
+         Set<Project> projects = app.soap().getProjects();
+         System.out.println(projects.size());
+         for (Project project : projects) {
+            System.out.println(project.getName());
+         }
+
    }
 
    @Test(enabled = false)
